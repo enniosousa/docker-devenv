@@ -1,0 +1,46 @@
+version: "3"
+
+services:
+
+  nginx-proxy-manager:
+    container_name: nginx-proxy-manager
+    hostname: nginx-proxy-manager
+    ports:
+      - 80:80
+      - 443:443
+      - 81:81
+    environment:
+      DB_SQLITE_FILE: "/data/database.sqlite"
+
+  vscode:
+    container_name: vscode
+    hostname: vscode
+    # image: codercom/code-server
+    build: ./builders/vscode
+    environment:
+      PASSWORD: devingondo
+    volumes:
+      - /home/ennio_sousa:/www/wwwroot
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /home/ennio_sousa/vscode/.config:/root/coder/.config
+    working_dir: /www/wwwroot
+    ports:
+      - 8080:8080
+    restart: always
+    user: root
+    
+  portainer:
+    container_name: portainer
+    hostname: portainer
+    image: portainer/portainer-ce
+    volumes:
+      - portainer_data:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - 8000:8000
+      - 9000:9000
+    restart: always
+volumes:
+  portainer_data:
+
+
