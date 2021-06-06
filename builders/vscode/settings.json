@@ -5,4 +5,7 @@
     "[blade]": {
         "editor.autoClosingBrackets": "always"
     },
+    "[php]": {
+        "editor.wordSeparators": "`~!@#%^&*()-=+[{]}\\|;:'\",.<>/?"
+    },
 }
